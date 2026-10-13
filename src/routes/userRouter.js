@@ -1,54 +1,23 @@
 import express from "express";
 
+import { getAllUsers } from "../controllers/getAllUsers.js";
+import { createUser } from "../controllers/createUser.js";
+import { getUserByEmail } from "../controllers/getUserByEmail.js";
+import { deleteUser } from "../controllers/deleteUser.js";
+import { validate } from "../middleware/validate.js";
+import { createUserSchema } from "../schemas/user.create.schema.js";
+import { deleteUserSchema } from "../schemas/user.delete.schema.js";
+
 
 const router = express.Router();
 
-const users = [
-    {
-        email: 'sander@jobloop.no',
-        username: 'Nattugle'
-    },
-    {
-        email: 'leah@jobloop.no',
-        username: 'LeahSomethingSomething'
-    }
-]
+// GET: localhost:8000/users - henter alle brukere
+// GET: localhost:8000/users/sander@jobloop.no - henter en bruker
+router.get('/', getAllUsers);
+router.post('/', validate(createUserSchema), createUser);
+router.get('/:email', validate(getUserByEmail), getUserByEmail);
+router.delete('/:email', validate(deleteUserSchema), deleteUser)
 
-// GET - localhost:8000/users
-router.get('/', (req, res) => {
-    res.status(200).json({
-        data: users
-    })
-});
-
-// POST - localhost:8000/users
-router.post('/', (req, res) => {
-    const { email, username } = req.body;
-
-    const user = {
-        email,
-        username
-    }
-
-    users.push(user);
-
-    res.status(201).json({
-        message: "Created new user",
-        data: user
-    })
-})
-
-// GET User By Email (Path Param)
-// localhost:8000/users/email
-router.get('/:email', (req, res) => {
-    const email = req.params.email;
-
-    const user = users.find(user => user.email === email)
-
-    res.status(200).json({
-        data: user
-    })
-})
-
+// DELETE: localhost:8000/users/sander@jobloop.no
 
 export default router;
