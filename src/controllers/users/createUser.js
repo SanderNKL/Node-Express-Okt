@@ -1,7 +1,7 @@
-import { users } from "../store/user.store.js";
+import sequelize from "../../config/database.js";
 
 
-export const createUser = (req, res) => {
+export const createUser = async (req, res) => {
     const { email, username } = req.body;
 
     if (!email || !username) {
@@ -15,7 +15,8 @@ export const createUser = (req, res) => {
         username
     }
 
-    users.push(user);
+    // users.push(user);
+    await sequelize.query()
 
     res.status(201).json({
         message: "Created new user",

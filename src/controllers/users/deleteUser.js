@@ -1,4 +1,4 @@
-import { users } from "../store/user.store.js";
+import { users } from "../../store/user.store.js";
 
 
 export const deleteUser = (req, res) => {

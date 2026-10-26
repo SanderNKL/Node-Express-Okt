@@ -1,9 +1,9 @@
 import express from "express";
 
-import { getAllUsers } from "../controllers/getAllUsers.js";
-import { createUser } from "../controllers/createUser.js";
-import { getUserByEmail } from "../controllers/getUserByEmail.js";
-import { deleteUser } from "../controllers/deleteUser.js";
+import { getAllUsers } from "../controllers/users/getAllUsers.js";
+import { createUser } from "../controllers/users/createUser.js";
+import { getUserByEmail } from "../controllers/users/getUserByEmail.js";
+import { deleteUser } from "../controllers/users/deleteUser.js";
 import { validate } from "../middleware/validate.js";
 import { createUserSchema } from "../schemas/user.create.schema.js";
 import { deleteUserSchema } from "../schemas/user.delete.schema.js";
